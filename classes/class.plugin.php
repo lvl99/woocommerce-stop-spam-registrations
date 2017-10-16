@@ -19,11 +19,11 @@ class Plugin {
   private $instantiated = FALSE;
 
   /**
-   * Track if honeypot trap is sprung
+   * Track if registration action is successful
    *
    * @var bool
    */
-  private $paw_in_the_honeypot = FALSE;
+  private $allow_registration = FALSE;
 
   /**
    * Plugin constructor.
@@ -57,16 +57,23 @@ class Plugin {
   }
 
   /**
-   * Check if honeypot trap has value, if so save it to temp space to reject in registration process
+   * Check if honeypot trap has value. Allow if it exists and has an empty value.
    *
    * @hooked wp_loaded
    * @priority 1
    */
   public function check_honeypot_trap_sprung ()
   {
-    if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST ) && ! empty( $_POST['emailaddress'] ) )
+    if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST ) )
     {
-      $this->paw_in_the_honeypot = TRUE;
+      if ( $_POST['emailaddress'] === '' )
+      {
+        $this->allow_registration = TRUE;
+      }
+      else
+      {
+        $this->allow_registration = FALSE;
+      }
     }
 
     // WooCommerce will do all its own other stuff following this...
@@ -83,7 +90,7 @@ class Plugin {
    */
   public function check_honeypot_trap_sprung_errors ( $errors, $username, $email )
   {
-    if ( $this->paw_in_the_honeypot )
+    if ( ! $this->allow_registration )
     {
       $errors = new \WP_Error( 'registration-error-invalid-email', __( 'Please provide a valid email address.', 'woocommerce' ) );
       error_log( '[LVL99-WCSSR] A spam registration was detected: ' . $username . ' <' . $email . '>' );
