@@ -30,13 +30,6 @@ class Plugin {
    */
   public function __construct ()
   {
-    // Don't create another instance; just use the global
-    $check_global = lvl99_wc_ssr();
-    if ( ! empty( $check_global ) && ! is_a( $check_global, __NAMESPACE__ . '\Plugin') )
-    {
-      return $check_global;
-    }
-
     // Initialise actions & filters
     add_action( 'woocommerce_register_form', [ $this, 'woocommerce_register_form' ] );
     add_action( 'wp_loaded', [ $this, 'process_registration' ], 1 );
