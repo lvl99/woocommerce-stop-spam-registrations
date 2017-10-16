@@ -64,7 +64,7 @@ class Plugin {
    */
   public function process_registration ()
   {
-    if ( ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST['register'] ) && ! empty( $_POST['register']['emailaddress'] ) )
+    if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST['register'] ) && ! empty( $_POST['register']['emailaddress'] ) )
     {
       $this->paw_in_the_honeypot = TRUE;
     }
@@ -85,7 +85,7 @@ class Plugin {
   {
     if ( $this->paw_in_the_honeypot )
     {
-      $errors = new WP_Error( 'registration-error-invalid-email', __( 'Please provide a valid email address.', 'woocommerce' ) );
+      $errors = new \WP_Error( 'registration-error-invalid-email', __( 'Please provide a valid email address.', 'woocommerce' ) );
       error_log( '[LVL99-WCSSR] A spam registration was detected: ' . $username . ' <' . $email . '>' );
     }
 
