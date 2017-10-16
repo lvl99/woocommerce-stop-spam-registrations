@@ -64,7 +64,7 @@ class Plugin {
    */
   public function process_registration ()
   {
-    if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST['register'] ) && ! empty( $_POST['register']['emailaddress'] ) )
+    if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST ) && ! empty( $_POST['emailaddress'] ) )
     {
       $this->paw_in_the_honeypot = TRUE;
     }
