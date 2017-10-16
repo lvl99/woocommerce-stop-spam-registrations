@@ -32,8 +32,8 @@ class Plugin {
   {
     // Initialise actions & filters
     add_action( 'woocommerce_register_form', [ $this, 'woocommerce_register_form' ] );
-    add_action( 'wp_loaded', [ $this, 'process_registration' ], 1 );
-    add_filter( 'woocommerce_registration_errors', [ $this, 'woocommerce_registration_errors' ], 1, 3 );
+    add_action( 'wp_loaded', [ $this, 'check_honeypot_trap_sprung' ], 1 );
+    add_filter( 'woocommerce_registration_errors', [ $this, 'check_honeypot_trap_sprung_errors' ], 1, 3 );
 
     // Mark instantiated
     $this->instantiated = TRUE;
@@ -62,7 +62,7 @@ class Plugin {
    * @hooked wp_loaded
    * @priority 1
    */
-  public function process_registration ()
+  public function check_honeypot_trap_sprung ()
   {
     if ( ! empty( $_POST ) && ! empty( $_POST['register'] ) && array_key_exists( 'emailaddress', $_POST ) && ! empty( $_POST['emailaddress'] ) )
     {
@@ -81,7 +81,7 @@ class Plugin {
    * @param string $email
    * @returns \WP_Error
    */
-  public function honeypot_trap_sprung ( $errors, $username, $email )
+  public function check_honeypot_trap_sprung_errors ( $errors, $username, $email )
   {
     if ( $this->paw_in_the_honeypot )
     {
