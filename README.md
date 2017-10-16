@@ -14,16 +14,27 @@ like captcha or simple addition. For the moment, let's see how the honeypot work
 
 ## Installation
 
-You can use composer to reference the version from git. You will need to add a package in your WordPress project's
-composer file:
+### ZIP
+
+You can download the ZIP file here to upload to your WordPress plugins folder:
+ - https://github.com/lvl99/woocommerce-stop-spam-registrations/archive/master.zip
+ 
+Once the plugin is uploaded to your server, you'll need to activate the plugin. When the plugin is activated then the
+trap is set and ready!
+
+
+### Composer
+
+You can use composer to reference the version from git. You will need to add a custom package repository in your
+WordPress project's composer file:
 
 ```json
-"packages": {
+"repositories": [
   {
     "type": "vcs",
-    "url": "https://github.com/lvl99/woocommerce-stop-spam-registrations.git"
+    "url": "https://github.com/lvl99/woocommerce-stop-spam-registrations"
   }
-}
+]
 ```
 
 Then you can require the plugin into your project:
@@ -31,12 +42,6 @@ Then you can require the plugin into your project:
 ```bash
   $ composer require lvl99/woocommerce-stop-spam-registrations
 ```
-
-Alternatively you can download the ZIP file here to upload to your WordPress plugins folder:
-https://github.com/lvl99/woocommerce-stop-spam-registrations/archive/master.zip
-
-Once the files are on your server, you'll need to activate the plugin. When the plugin is activated then the trap is
-set and ready!
 
 
 ## [Changelog](CHANGELOG.md)
