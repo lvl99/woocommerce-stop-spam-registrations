@@ -1,0 +1,13 @@
+{
+    "name": "lvl99/woocommerce-stop-spam-registrations",
+    "description": "A small plugin designed to stop automated bots from registering customer accounts on your WooCommerce shop.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matt Scheurich",
+            "email": "matt@lvl99.com"
+        }
+    ],
+    "require": {}
+}
